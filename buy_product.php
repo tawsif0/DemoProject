@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $product = $result->fetch_assoc();
             $total_price = $product['price'];
 
-            // Timestamp for purchase
+            
             $purchase_timestamp = time();
 
             $sql = "INSERT INTO purchases (dealer_id, product_id, total_price, purchase_timestamp) VALUES ('$dealer_id', '$product_id', '$total_price', '$purchase_timestamp')";
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $sql = "INSERT INTO commissions (admin_id, dealer_id, product_id, commission_amount, commission_timestamp) VALUES ('$admin_id', '$dealer_id', '$product_id', '$commission_to_creator', '$purchase_timestamp')";
                 $conn->query($sql);
 
-                // Determine the timestamp 150 days later
+                
                 $expiry_timestamp = $purchase_timestamp + (150 * 24 * 60 * 60);
 
                 $sql = "SELECT id FROM admins WHERE id <> '$admin_id'";
